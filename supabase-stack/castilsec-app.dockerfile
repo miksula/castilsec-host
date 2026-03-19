@@ -20,8 +20,8 @@ RUN deno install
 # Build the app
 RUN deno task build
 
-# Start hosting
-CMD ["deno", "task", "preview", "--host"]
+# Start the api
+RUN deno run --allow-net --allow-read apps/api/index.ts
 
-# Run the api
-# CMD ["deno", "run", "--allow-net", "apps/api/index.ts"]
+# Start hosting
+CMD ["deno", "run", "--allow-net", "--allow-read", "file-server.ts"]
