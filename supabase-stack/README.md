@@ -1,6 +1,8 @@
 # Supabase Local Development
 
-This is demonstration of running Supabase locally in tandem with our [React Supabase Todolist demo](https://github.com/powersync-ja/powersync-js/tree/main/demos/react-supabase-todolist).
+This is demonstration of running Supabase locally in tandem with our [Castilsec App](https://github.com/miksula/castilsec-app.git).
+
+See also [React Supabase Todolist demo](https://github.com/powersync-ja/powersync-js/tree/main/demos/react-supabase-todolist).
 
 ## Getting Started
 
@@ -23,7 +25,12 @@ supabase start
 
 Start the demonstration with `docker compose up`
 
-> **Note:**  For git clone specifically, the clone layer is cached based on the command string, not the remote content. Using CACHE_BUST to force a fresh clone: `docker compose build --build-arg CACHE_BUST=$(date +%s)`
+> **Note:**  For git clone specifically, the clone layer is cached based on the command string, not the remote content. Using CACHE_BUST to force a fresh clone: 
+
+```bash
+docker compose build --build-arg CACHE_BUST=$(date +%s)
+docker compose up
+```
 
 The frontend should be available at `http://localhost:4170`
 
