@@ -1,0 +1,17 @@
+test.example.com {
+	encode zstd gzip
+
+	header {
+		-Server
+		X-Content-Type-Options nosniff
+		X-Frame-Options SAMEORIGIN
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+
+	log {
+		output file /var/log/caddy/test-access.log
+		format json
+	}
+
+	reverse_proxy 127.0.0.1:4170
+}
