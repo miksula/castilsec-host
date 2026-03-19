@@ -19,6 +19,7 @@ The script installs and enables:
 - Node.js LTS
 - Docker Engine
 - Docker Compose plugin
+- Supabase CLI v2.76.6
 - Caddy
 - The bootstrap packages it needs to run on a minimal server: `ca-certificates`, `curl`, `gnupg`, and `python3`
 
@@ -164,6 +165,7 @@ node -v
 npm -v
 docker --version
 docker compose version
+supabase --version
 caddy version
 ```
 
@@ -259,4 +261,13 @@ But it is not the recommended path, because no non-root user will be added to th
 
 ```bash
 usermod -aG docker <admin-user>
+```
+
+## 10. Run the Supabase + PowerSync stack
+
+If not cloned, run the following:
+
+```bash
+git clone https://github.com/miksula/castilsec-host.git
+cd castilsec-host/ubuntu/supabase-stack
 ```

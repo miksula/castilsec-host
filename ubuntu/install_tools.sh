@@ -3,7 +3,7 @@ set -euo pipefail
 
 # ─────────────────────────────────────────────
 #  install_tools.sh
-#  Installs: Node.js (LTS), Docker, Docker Compose, Caddy
+#  Installs: Node.js (LTS), Docker, Docker Compose, Caddy, Supabase CLI
 #  Tested on: Ubuntu 22.04 / 24.04 LTS
 # ─────────────────────────────────────────────
 
@@ -137,6 +137,22 @@ EOF
 }
 
 # ─────────────────────────────────────────────
+install_supabase_cli() {
+  local VERSION="2.76.6"
+  local ARCH="amd64"
+
+  info "Installing Supabase CLI v${VERSION} (${ARCH})..."
+
+  curl -fsSL -o /tmp/supabase.deb \
+    "https://github.com/supabase/cli/releases/download/v${VERSION}/supabase_${VERSION}_linux_${ARCH}.deb"
+
+  apt-get install -y /tmp/supabase.deb
+  rm -f /tmp/supabase.deb
+
+  success "Supabase CLI $(supabase --version) installed."
+}
+
+# ─────────────────────────────────────────────
 install_caddy() {
   info "Installing Caddy Server..."
 
@@ -167,6 +183,7 @@ print_summary() {
   echo -e "  Docker   →  $(docker version --format '{{.Server.Version}}')"
   echo -e "  Compose  →  $(docker compose version --short)"
   echo -e "  Caddy    →  $(caddy version)"
+  echo -e "  Supabase →  $(supabase --version)"
   echo -e "${BOLD}─────────────────────────────────────${RESET}"
   echo ""
 }
@@ -193,6 +210,7 @@ main() {
   # Note: Docker daemon configuration is optional and may interfere with setup
   # configure_docker_daemon  
 
+  install_supabase_cli
   install_caddy
 
   print_summary
