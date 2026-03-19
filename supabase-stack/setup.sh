@@ -14,7 +14,3 @@ echo "[]" > $SIGNING_KEY_FILE
 supabase gen signing-key --algorithm ES256 --append
 echo "Signing key generated at: $SIGNING_KEY_FILE"
 
-# Start Supabase
-echo "Starting Supabase..."
-cd "$SCRIPT_DIR"
-supabase start

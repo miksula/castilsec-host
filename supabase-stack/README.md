@@ -29,7 +29,8 @@ Start the demonstration with `docker compose up`
 
 ```bash
 docker compose build --build-arg CACHE_BUST=$(date +%s)
-docker compose up
+# docker compose build --no-cache
+docker compose up 
 ```
 
 The frontend should be available at `http://localhost:4170`

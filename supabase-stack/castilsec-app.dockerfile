@@ -8,20 +8,22 @@ ARG VITE_POWERSYNC_URL=
 
 ENV VITE_SUPABASE_ANON_KEY=${SUPABASE_PUBLISHABLE_KEY}
 
+# Shallow clone — only fetches the latest commit, much faster
 ARG CACHE_BUST=1
-RUN git clone https://github.com/miksula/castilsec-app.git
+RUN git clone --depth 1 https://github.com/miksula/castilsec-app.git
 
-# Set the working directory inside the container
-WORKDIR  /castilsec-app
+WORKDIR /castilsec-app
 
-# Install dependencies and setup the monorepo
-RUN deno install
+# Cache the Deno module downloads across rebuilds
+RUN --mount=type=cache,target=/root/.cache/deno deno install
 
 # Build the app
-RUN deno task build
+RUN --mount=type=cache,target=/root/.cache/deno deno task build
 
-# Start the api
-RUN deno run --allow-net --allow-read apps/api/index.ts
+# Copy startup script that runs both processes
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-# Start hosting
-CMD ["deno", "run", "--allow-net", "--allow-read", "file-server.ts"]
+EXPOSE 4170 8001
+
+CMD ["/start.sh"]
