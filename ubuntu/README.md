@@ -287,15 +287,4 @@ git clone https://github.com/miksula/castilsec-host.git
 cd castilsec-host/ubuntu/supabase-stack
 ```
 
-## 11. Configure Caddy server
-
-```bash
-cd /etc/caddy/
-vi Caddyfile
-```
-
-Update the contents of the Caddyfile (see `Caddyfile.example`) and 
-reload the configuration: `systemctl reload caddy`
-
-### Using rsync
 
