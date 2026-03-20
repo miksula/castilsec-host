@@ -125,19 +125,23 @@ sudo systemctl restart ssh
 
 This disables direct root login and password authentication over SSH, which is a strong default even for a test server.
 
-## 6. Enable a minimal firewall
+## 6. Minimal firewall with Hetzner Firewall
 
-Allow only SSH, HTTP, and HTTPS:
+Allow only SSH, HTTP, 8080, and HTTPS:
 
-```bash
-sudo ufw allow OpenSSH
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
-sudo ufw enable
-sudo ufw status verbose
-```
+1. Go to [console.hetzner.com](https://console.hetzner.com/projects)
+2. Navigate to Firewalls in the left sidebar
+3. Click Create Firewall (or edit an existing one)
+4. Under Inbound rules, the default is to block everything not explicitly allowed — so just don't add a rule for port 54323
+5. Add rules only for the ports you need open, e.g.:
+	- TCP port 22 (SSH)
+	- TCP port 80 (HTTP)
+	- TCP port 8080 (HTTP for PowerSync Service port)
+	- TCP port 443 (HTTPS)
+6. Under Apply to, select your server
+7. Click Create Firewall
 
-Because the install script configures Docker to bind to `127.0.0.1` by default, your application containers should not be exposed publicly unless you explicitly override that behavior.
+Hetzner's firewall is a allowlist — anything not explicitly allowed is blocked. So you simply don't allow ports like 54323, they will be blocked at the network level before traffic reaches the server.
 
 ## 7. Clone this repository and run the install script
 
