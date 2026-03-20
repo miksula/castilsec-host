@@ -74,6 +74,13 @@ adduser <admin-user>
 usermod -aG sudo <admin-user>
 ```
 
+Allow the user to run sudo without a password:
+
+```bash
+echo '<admin-user> ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/<admin-user>
+chmod 440 /etc/sudoers.d/<admin-user>
+```
+
 ## 4. Add your SSH key to the new user
 
 Recommended method from your local machine:
@@ -217,15 +224,23 @@ sudo systemctl reload caddy
 Replace these values in the example:
 
 - `test.example.com` with the hostname for your test environment
-- `ops@example.com` with your email address for ACME notifications
-- `127.0.0.1:4170` with the local port exposed by your application
 
-If you do not have DNS configured yet, use a temporary HTTP-only site block until DNS is ready:
+Using rsync to apply local changes to remote Caddyfile. Dry-run first to preview changes:
 
-```caddy
-:80 {
-	reverse_proxy 127.0.0.1:4170
-}
+```bash
+rsync -avzn --rsync-path="sudo rsync" ./Caddyfile <admin-user>@<server-ip>:/etc/caddy/Caddyfile
+```
+
+Sync the file:
+
+```bash
+rsync -avz --rsync-path="sudo rsync" ./Caddyfile <admin-user>@<server-ip>:/etc/caddy/Caddyfile
+```
+
+After syncing, you'll need to reload Caddy on the server:
+
+```bash
+ssh <admin-user>@<server-ip> "sudo systemctl reload caddy"
 ```
 
 ## Test Environment Best Practices
@@ -281,3 +296,6 @@ vi Caddyfile
 
 Update the contents of the Caddyfile (see `Caddyfile.example`) and 
 reload the configuration: `systemctl reload caddy`
+
+### Using rsync
+
