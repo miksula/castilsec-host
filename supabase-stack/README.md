@@ -1,4 +1,4 @@
-# Supabase Local Development
+# Supabase Local Development Setup
 
 This is demonstration of running Supabase locally in tandem with our [Castilsec App](https://github.com/miksula/castilsec-app.git).
 
