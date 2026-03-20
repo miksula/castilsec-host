@@ -27,7 +27,8 @@ services:
         SUPABASE_PUBLISHABLE_KEY: ${SUPABASE_PUBLISHABLE_KEY}
         VITE_POWERSYNC_URL: http://localhost:${PS_PORT}
     ports:
-      - 4170:4173
+      - 8000:8000
+      - 8001:8001
 
 # Supabase exposes their services on this network
 networks:

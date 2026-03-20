@@ -29,10 +29,11 @@ Start the demonstration with `docker compose up`
 
 ```bash
 docker compose build --build-arg CACHE_BUST=$(date +%s)
+# invalidates cache fully
 # docker compose build --no-cache
 docker compose up 
 ```
 
-The frontend should be available at `http://localhost:4170`
+The frontend should be available at `http://localhost:8000`
 
 > **Note:** This demo uses Supabase's new asymmetric JWT signing keys (ES256). PowerSync is compatible with these keys and will automatically fetch the public key from Supabase's JWKS endpoint. 
