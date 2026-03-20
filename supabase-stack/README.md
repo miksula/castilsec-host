@@ -28,6 +28,7 @@ Start the demonstration with `docker compose up`
 > **Note:**  For git clone specifically, the clone layer is cached based on the command string, not the remote content. Using CACHE_BUST to force a fresh clone: 
 
 ```bash
+# file: start-powersync.sh
 docker compose build --build-arg CACHE_BUST=$(date +%s)
 # invalidates cache fully
 # docker compose build --no-cache
@@ -37,3 +38,10 @@ docker compose up
 The frontend should be available at `http://localhost:8000`
 
 > **Note:** This demo uses Supabase's new asymmetric JWT signing keys (ES256). PowerSync is compatible with these keys and will automatically fetch the public key from Supabase's JWKS endpoint. 
+
+# Stop services
+
+```bash
+supabase stop
+docker compose down
+```
