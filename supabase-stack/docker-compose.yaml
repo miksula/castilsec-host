@@ -25,7 +25,7 @@ services:
       args:
         VITE_SUPABASE_URL: ${SUPABASE_URL}
         SUPABASE_PUBLISHABLE_KEY: ${SUPABASE_PUBLISHABLE_KEY}
-        VITE_POWERSYNC_URL: http://localhost:${PS_PORT}
+        VITE_POWERSYNC_URL: http://${PS_HOST}:${PS_PORT}
     ports:
       - 8000:8000
       - 8001:8001

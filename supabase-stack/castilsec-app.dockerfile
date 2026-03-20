@@ -24,6 +24,6 @@ RUN --mount=type=cache,target=/root/.cache/deno deno task build
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-EXPOSE 4170 8001
+EXPOSE 8000 8001
 
 CMD ["/start.sh"]
